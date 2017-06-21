@@ -1,0 +1,16 @@
+<?php
+
+namespace Yoqeen\App\[APPNAME]\Models;
+
+use Yoqeen\Libs\Mod;
+use YQ;
+
+class [MODELS] extends Mod
+{
+
+	function __construct()
+	{
+		parent::__construct();
+	}
+
+}

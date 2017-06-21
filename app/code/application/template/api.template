@@ -1,0 +1,32 @@
+<?php
+
+namespace Yoqeen\App\[APPNAME]\Apis;
+
+use Yoqeen\Libs\Api;
+use YQ;
+
+class [APIS] extends Api
+{
+
+	function __construct()
+	{
+		parent::__construct();
+		//api result
+		$this->result = array(
+			'code'		=> 0,			//api code
+			'message'	=> 'welcome to [APPNAME] api',		//api message
+			'data'		=> 'jsonData',	//api data
+			'other'		=> 'other',		//api other info
+		);
+	}
+
+	/*
+	* http://example.com/api/[APPAPI]/paramJsonData/token
+	* or
+	* http://example.com/api?method=[APPAPI]&params=jsonData&token=tokenCode
+	*/
+	public function demoApi()
+	{
+        $this->result();
+	}
+}

@@ -1,0 +1,21 @@
+<?php
+
+namespace Yoqeen\App\[APPNAME]\Controllers;
+
+use Yoqeen\Libs\Lib;
+use YQ;
+
+class [CONTROLLERS] extends Lib
+{
+
+	function __construct()
+	{
+		parent::__construct();
+	}
+
+	public function indexAct()
+	{
+		$this->template('[APPNAME]');
+        $this->page();
+	}
+}

@@ -1,0 +1,77 @@
+/*
+* @Author: Peter
+* @Date:   2017-06-05 15:15:58
+* @Last Modified by:   Peter
+* @Last Modified time: 2017-06-05 16:48:19
+*/
+.notification {
+    position: fixed;
+    max-width:400px;
+    min-height: 1px;
+    border:1px solid #d9d9d9;
+    box-shadow: 0 1px 8px hsla(0,0%,39%,.2);
+    background-color: rgba(255,255,255,.94);
+    overflow: hidden;
+    line-height: 1.5;
+    z-index: 1010;
+    padding: 10px;
+    font-size: 1.2em;
+    display: none;
+}
+.notification.left-top {
+    left: 16px;
+    top: 16px;
+}
+.notification.left-bottom {
+    left: 16px;
+    bottom: 16px;
+}
+.notification.right-top {
+    right: 16px;
+    top: 16px;
+}
+.notification.right-bottom {
+    right: 16px;
+    bottom: 16px;
+}
+.notification.center-top {
+    top: 16px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.notification.center-bottom {
+    transform:translate(0,0);
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.notification-side, .notification-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+.notification-side {
+    padding-right: 16px;
+    max-width: 64px;
+}
+.notification-content {
+    width: 400px;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: left;
+}
+.notification-header {
+    vertical-align: middle;
+}
+.notification-body {
+    margin: 8px 0;
+}
+.notification-header, .notification-body, .notification-footer {
+    width: 100%;
+}
+.notification-close {
+    float: right;
+    line-height: 1.5;
+    margin-right: 5px;
+}

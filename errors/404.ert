@@ -1,0 +1,23 @@
+<!Doctype html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+	<head>
+		<title>您要找的页面不存在</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport">
+	</head>
+
+	<body>
+		<style type='text/css'>
+			html, body { margin: 0;padding: 0;width: 100%;height: 100%;display: table;background: #f9f9f9;font-family: sans-serif;font-size: 62.5%;  }
+			.content { margin:0 auto;width:100%;min-height:160px;text-align: center;font-size: 12px;margin-top: 120px; }
+			a { color: #777; }
+			a:hover { color: #108ee9; }
+		</style>
+		<div class='content'>
+			<div style='font-size: 158px;letter-spacing:-10px;color: #108ee9;'>404</div>
+			<div>对不起，您要找的页面不存在，可能是因为您的链接地址有误<br>
+			<p>您可以 <a style="text-decoration: underline;" href="<?php echo YQ::baseUrl();?>">去首页</a> 或者 <a style="text-decoration: underline;" class="back" href="javascript:history.go(-1)">返回</a></p>
+			</div>
+		</div>
+	</body>
+</html>
