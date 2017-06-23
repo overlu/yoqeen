@@ -84,12 +84,12 @@ define('KEY','canoiywqfqwfw2wqfqmmca9u02r2mcp0q');
 define('PAGE_TITLE','YOQEEN FRAMEWORK');
 
 //css
-define('CSSFRONTEND', ['font-awesome.css','base.css','main.css','responsive.css']);
-define('CSSBACKEND', ['font-awesome.css','base.css','main.css','responsive.css']);
+define('CSSFRONTEND', 'font-awesome.css, base.css, main.css, responsive.css');
+define('CSSBACKEND', 'font-awesome.css, base.css, main.css, responsive.css');
 
 //js
-define('JSFRONTEND', ['jquery.cookie.js', 'main.frontend.js']);
-define('JSBACKEND', ['jquery.cookie.js', 'main.backend.js']);
+define('JSFRONTEND', 'jquery.cookie.js, main.frontend.js');
+define('JSBACKEND', 'jquery.cookie.js, main.backend.js');
 
 /**
  * hook

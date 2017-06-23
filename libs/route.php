@@ -145,7 +145,8 @@ class Route
         // Add this group and sub-groups to append to route uri.
         $this->group     .= $group;
         // Bind to Route Class.
-        $callback         = $callback->bindTo($this);
+        $callback         = @$callback->bindTo($this);
+        // $callback         = $callback->bindTo(self::$instance);
         // Call with args.
         call_user_func_array($callback, $this->bindArgs($this->pramsGroup, $this->matchedArgs));
 

@@ -513,6 +513,7 @@ final class YQ
 	{
 		$css = md5($type.CSS_VERSION.YOQEEN_THEME).'.css';
 		$cssFiles = $type=='frontend' ? CSSFRONTEND : CSSBACKEND;
+		$cssFiles = array_map('trim', explode(',', $cssFiles));
 		$link = '';
 		if(DEVELOPMOD == 'PRODUCTION')
 		{
@@ -560,6 +561,7 @@ final class YQ
 	{
 		$js = md5($type.JS_VERSION.YOQEEN_THEME).'.js';
 		$jsFiles = $type=='frontend' ? JSFRONTEND : JSBACKEND;
+		$jsFiles = array_map('trim', explode(',', $jsFiles));
 		$script = '';
 		if(DEVELOPMOD == 'PRODUCTION')
 		{
