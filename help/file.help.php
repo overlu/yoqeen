@@ -44,7 +44,7 @@ class File
 	 | $suffix 是否输出文件后缀名 null不输出
 	 | @return  文件名 or false
 	 */
-	function fileNames($file,$suffix=NULL)
+	function name($file,$suffix=NULL)
 	{
 		if(is_file($file))
 		{
@@ -58,7 +58,7 @@ class File
 	 | $file 文件
 	 | @return  目录名 or false
 	 */
-	function dirNames($file)
+	function dirName($file)
 	{
 		if(is_file($file))
 		{
@@ -72,7 +72,7 @@ class File
 	 | $file 文件 [为字符串或者数组]
 	 | @return  未删除的文件 或者 true/false
 	 */
-	function filesDelete($file)
+	function remove($file)
 	{
 		if(is_array($file))
 		{

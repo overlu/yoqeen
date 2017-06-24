@@ -119,7 +119,19 @@ function yoqeenDevelop()
 			return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
 		}
 		$memory = convert(memory_get_usage(true));
-    	echo '<style>html,body{margin:0;padding:0;}</style><div style="position:fixed;bottom:0px;font-size:12px;background:#fff;height:20px;line-height:20px;padding:0px 10px;width:100%;border-top:1px solid #999;">Memory: '.$memory.', Executed in ', round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 2).'s . <a href="'.YQ::baseUrl('application').'">Application Manage</a></div>';
+		$version = \YQ::Version()->current();
+		$lastest_version = \YQ::Version()->lastest();
+		$html = '<style>html,body{margin:0;padding:0;}</style><div style="position:fixed;bottom:0px;font-size:12px;background:#fff;height:20px;line-height:20px;padding:0px 10px;width:100%;border-top:1px solid #999;">Memory: '.$memory.', Executed in '. round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 2).'s . <a style="margin:0 1em;" href="'.YQ::baseUrl('application').'">Application Manage</a>';
+    	if($version != $lastest_version)
+    	{
+    		$html .= ' <span style="color:#f00;">Current Version: '.$version.', Lastest Version: '.$lastest_version.', <a style="color:#f00;font-weight:bold;" href="'.YQ::baseUrl('application/upgrade').'">Upgrade</a></span>';
+    	}
+    	else
+    	{
+    		$html .= ' <span style="color:#f00;">Current Version: '.$version.'</span>.';
+    	}
+    	$html .= '</div>';
+    	echo $html;
     }
 
 

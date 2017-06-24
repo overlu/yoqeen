@@ -96,7 +96,7 @@ class Lib extends Core
 		if(isAjax())
 		{
 			header('Content-type: application/json');
-			echo encode($this->ajax);
+			echo json_encode($this->ajax);
 			exit;
 		}
 	}

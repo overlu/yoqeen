@@ -95,5 +95,7 @@ function ismobile(){ return navigator.userAgent.match(/(iPhone|iPod|Android|ios)
 })(jQuery);
 
 jQuery(function($){
-    
+    $('.cancel').click(function(){
+        history.go(-1);
+    })
 })

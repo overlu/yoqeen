@@ -35,7 +35,7 @@ define('YOQEEN_THEME', 'green');
 define('YOQEEN_BACKEND','backend');
 
 //db
-define('HOST_SELECT', false); // connect the default host
+define('HOST_SELECT', true); // connect the default host
 if(HOST_SELECT)
 {
 	include_once 'database.php';

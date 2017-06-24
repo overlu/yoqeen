@@ -36,32 +36,96 @@ class ApplicationLib extends Lib
 
 	public function indexAct()
 	{
+		$this->title = 'APP Manage';
 		$apps = $this->file->read(APP.DS.'code', false);
 		$this->assign('apps', $apps);
 		$this->template('application');
-		$this->page();
+		$this->page('page0');
 	}
 
 	public function addAct()
 	{
+		$this->title = 'APP Add';
 		$this->template('add', 'application');
-		$this->page();
+		$this->page('page0');
 	}
 
 	public function removeAct()
 	{
+		$this->title = 'APP Remove';
 		$app = isset($_REQUEST['app']) ? $_REQUEST['app'] : '';
 		$this->assign('app', $app);
 		$this->template('remove','application');
-		$this->page();
+		$this->page('page0');
 	}
 
 	public function lockAct()
 	{
+		$this->title = 'APP Lock';
 		$app = isset($_REQUEST['app']) ? $_REQUEST['app'] : '';
 		$this->assign('app', $app);
 		$this->template('lock','application');
-		$this->page();
+		$this->page('page0');
+	}
+
+	/**
+	 * 数据库版本升级
+	 */
+	public function upgradeAct()
+	{
+		$this->title = 'APP Upgrade';
+		$upgradeTitle = is_file(APP.DS.'sql'.DS.'lock') ? "App Upgrade" : "App Install";
+
+		$this->assign('upgradeTitle', $upgradeTitle);
+		$this->template('upgrade', 'application');
+		$this->page('page0');
+	}
+
+	public function upgradeAjax()
+	{
+		$sql = [];
+		$sql_files = $this->file->read(APP.DS.'sql');
+		sort($sql_files);
+		$lock = json_decode($this->file->get(APP.DS.'sql'.DS.'lock'), true);
+		$lastest_version = $lock['version'] ? $lock['version'] : 'v0.0.0';
+		foreach ($sql_files as $sql_file)
+		{
+			if($this->file->name($sql_file) != 'lock' && version_compare($this->file->name($sql_file, '.php'), $lastest_version, '>'))
+			{
+				$lastest_version = $this->file->name($sql_file, '.php');
+				include_once $sql_file;
+			}
+		}
+		$install_num = 0;
+		$install_info = [];
+		foreach ($sql as $_key => $_sql)
+		{
+			
+			try {
+				if(!YQ::Mod()->exec($_sql)->result()->query)
+				{
+					$install_info[] = "<span style='color:red !important;'>Error</span>: $_key=><br>".$_sql."<br>";
+				}
+				else
+				{
+					$install_info[] = "<span style='color:green !important;'>Success</span>: ".$_key."<br>";
+					$install_num++;
+				}
+			} catch (PDOException $e) {
+				$install_info[] = "<span style='color:red !important;'>Error</span>: $_key=><br>".$e->getMessage()."<br>";
+			}
+		}
+
+		$lock = json_encode([
+			'version' => $lastest_version,
+			'date'    => date('Y-m-d H:i:s'),
+		]);
+		$this->file->create(APP.DS.'sql'.DS.'lock', $lock);
+		$install_info[] = $install_num == 0 ? "<h3>Already the latest version.</h3>" : ($install_num == count($sql) ? "<h3 style='color:green !important;'>Successed!!!</h3>" : "<h3 style='color: !important;'>Failed</h3>");
+
+		$this->ajax['code'] = 1;
+		$this->ajax['message'] = $install_info;
+		$this->ajax();
 	}
 
 	/**
@@ -162,7 +226,7 @@ class ApplicationLib extends Lib
 		}
 		if(file_exists($this->app.DS.'.lock'))
 		{
-			$this->file->filesDelete($this->app.DS.'.lock');
+			$this->file->remove($this->app.DS.'.lock');
 			$this->ajax['code'] = 1;
 			$this->ajax['message'] = 'APP unlock success';
 			$this->ajax['other'] = 'unlock';

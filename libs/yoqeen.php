@@ -533,17 +533,17 @@ final class YQ
 				}
 				file_put_contents(BP.DS.'var'.DS.'css'.DS.$css, $cssmini->run($csss));
 			}
-			$link = "<link rel='stylesheet' type='text/css' href='".self::baseUrl()."/var/css/".$css."' />";
+			$link = "<link rel='stylesheet' type='text/css' href='".self::baseUrl()."var/css/".$css."' />";
 		}
 		else
 		{
-			$cssPath = $type=='frontend' ? self::baseUrl().'/skin/frontend/'.self::$theme.'/css/' : self::baseUrl().'/skin/backend/css/';
+			$cssPath = $type=='frontend' ? self::baseUrl().'skin/frontend/'.self::$theme.'/css/' : self::baseUrl().'skin/backend/css/';
 			// dd($cssFiles);
 			foreach($cssFiles as $cssFile)
 			{
 				if($type=='frontend' && !is_file($type=='frontend' ? SKIN.DS.'frontend'.DS.self::$theme.DS.'css'.DS.$cssFile : SKIN.DS.'backend'.DS.'css'.DS.$cssFile))
 				{
-					$link .= "<link rel='stylesheet' type='text/css' href='".self::baseUrl()."/skin/base/css/".$cssFile."' />";
+					$link .= "<link rel='stylesheet' type='text/css' href='".self::baseUrl()."skin/base/css/".$cssFile."' />";
 				}
 				else
 				{
@@ -813,6 +813,28 @@ final class YQ
 		return false;
 	}
 
+	/**
+	 | 实例化Libs中的类
+	 | $mod 模块名
+	 */
+	public static function Lib($lib, $param='')
+	{
+		if($lib && is_file(LIBS . DS . strtolower($lib) .".php"))
+		{
+			$model = "YOQEEN\\Libs\\".$lib;
+			if(class_exists($model))
+			{
+				if(!isset(self::$new[$model]) || $param)
+				{
+
+					self::$new[$model] = new $model($param);
+				}
+				return self::$new[$model];
+			}
+		}
+		return false;
+	}
+
 	public static function __callStatic($method, $arguments) 
     {
 		if(substr($method, 0, 4) == 'help')
@@ -824,6 +846,10 @@ final class YQ
 		{
 			$type = strtolower(substr($method, 5));
 			return (isset($arguments) && $arguments) ? self::Model($type, $arguments[0]) : self::Model($type);
+		}
+		if(is_file(LIBS . DS . strtolower($method) .".php"))
+		{
+			return (isset($arguments) && $arguments) ? self::Lib($method, $arguments[0]) : self::Lib($method, $arguments);
 		}
     }
 }
