@@ -272,6 +272,10 @@ final class YQ
 	public static function createcachepagefile($page)
 	{
 		$pagefile = APP . DS . "design" . DS . self::$theme . DS . $page . ".tpl";
+		if(!is_file($pagefile))
+		{
+			$pagefile = APP . DS . "design" . DS . 'base' . DS . $page . ".tpl";
+		}
 		include_once $pagefile;
 		$file = self::help('file');
 		$cachefile = BP . DS . 'var' . DS . 'pagecache' . DS . 'yoqeen_' . self::$theme . '_' . $page . '_' . self::$template . '_c_';

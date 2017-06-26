@@ -3,5 +3,5 @@ var/session
 var/js
 var/css
 var/reports
-var/pageCache
+var/pagecache
 app/sql/lock
