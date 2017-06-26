@@ -46,7 +46,7 @@ function pageError($data = array(), $tag = 'error', $html = null){
  */
 function errorLog($content, $type='ERROR')
 {
-    $file = BP.DS.'reports'.DS.'error-'.date('Y-m-d').'.log';
+    $file = BP.DS.'var'.DS.'reports'.DS.'error-'.date('Y-m-d').'.log';
     $content = '===  '.strftime("%Y-%m-%d %H:%M:%S").'  ['.strtoupper($type).']  ===   '.$content."\n\r";
     \YQ::help('file')->create($file, $content, 'a');
     return True;

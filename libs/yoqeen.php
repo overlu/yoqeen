@@ -515,6 +515,7 @@ final class YQ
 		$cssFiles = $type=='frontend' ? CSSFRONTEND : CSSBACKEND;
 		$cssFiles = array_map('trim', explode(',', $cssFiles));
 		$link = '';
+		if(!is_dir(BP.DS.'var'.DS.'css')){ mkdir(BP.DS.'var'.DS.'css'); }
 		if(DEVELOPMOD == 'PRODUCTION')
 		{
 			if(!is_file(BP.DS.'var'.DS.'css'.DS.$css))
@@ -563,6 +564,7 @@ final class YQ
 		$jsFiles = $type=='frontend' ? JSFRONTEND : JSBACKEND;
 		$jsFiles = array_map('trim', explode(',', $jsFiles));
 		$script = '';
+		if(!is_dir(BP.DS.'var'.DS.'js')){ mkdir(BP.DS.'var'.DS.'js'); }
 		if(DEVELOPMOD == 'PRODUCTION')
 		{
 			if(!is_file(BP.DS.'var'.DS.'js'.DS.$js))
