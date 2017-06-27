@@ -12,16 +12,23 @@ class AdminLib extends Lib
 	function __construct()
 	{
 		parent::__construct();
-		$this->con = ltrim(strrchr(rtrim(strtolower(get_class($this)),'lib'),"\\"),"\\");
+		$con = ltrim(strrchr(strtolower(get_class($this)),"\\"),"\\");
+		if(substr($con, -3) != 'lib')
+		{
+			throw new \Exception("Controllers Class Name Should End with [lib]", 1);
+			
+		}
+		$this->con = substr($con, 0, -3);
 		// if($this->con != 'login')
 		// {
 		// 	$this->needLogin();
 		// }
-		$this->session->cookie('con',$this->con);
+		// $this->session->cookie('con',$this->con);
 	}
-	
+
 	public function indexAct()
 	{
+
 		redirectUrl(YQ::baseUrl('admin/index'));
 	}
 
@@ -90,14 +97,5 @@ class AdminLib extends Lib
 				}
 			}
 		}
-	}
-
-	protected function searchReset()
-	{
-		$this->session->cookie('search',null);
-		$this->session->cookie('order',null);
-		$this->session->cookie('sort',null);
-		$this->session->cookie('p',null);
-		unset($_COOKIE['search'],$_COOKIE['order'],$_COOKIE['sort'],$_COOKIE['p']);
 	}
 }

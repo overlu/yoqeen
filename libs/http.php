@@ -76,7 +76,8 @@ class Http
 		$pathInfo = pathinfo($currentPath);
 		$hostName = $_SERVER['HTTP_HOST'];
 		$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https://' ? 'https://' : 'http://';
-		return $protocol.$hostName.($pathInfo['dirname'] != "\\"?$pathInfo['dirname']:"")."/";
+		$url = $protocol.$hostName.($pathInfo['dirname'] != "\\"?$pathInfo['dirname']:"")."/";
+		return rtrim($url,'/').'/';
 	}
 
 	public static function praseUrl()

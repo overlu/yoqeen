@@ -14,7 +14,6 @@ class ApplicationLib extends Lib
 	public $models;
 	public $design;
 	public $name;
-	public $model;
 	function __construct()
 	{
 		if(DEVELOPMOD == 'PRODUCTION')

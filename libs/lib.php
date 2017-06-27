@@ -52,7 +52,14 @@ class Lib extends Core
 	{
 		if($name == "model")
 		{
-			return YQ::MODEL(ltrim(strrchr(rtrim(strtolower(get_class($this)),'lib'),"\\"),"\\"));
+			$mod = ltrim(strrchr(strtolower(get_class($this)),"\\"),"\\");
+			if(substr($mod, -3) != 'lib')
+			{
+				throw new \Exception("Controllers Class Name Should End with [lib]", 1);
+				
+			}
+			$mod = substr($mod, 0, -3);
+			return YQ::MODEL($mod);
 		}
 		if(strrchr($name,"Model") == "Model")
 		{
