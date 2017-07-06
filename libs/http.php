@@ -7,6 +7,7 @@ class Http
 	public static $yoqeenMod = '';
 	public static $yoqeenCon = '';
 	public static $yoqeenFun = '';
+	public static $yoqeenFunParams = '';
 
 	//api
 	public static $yoqeenApi = false;

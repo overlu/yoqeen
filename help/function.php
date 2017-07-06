@@ -348,3 +348,49 @@ function now($style='Y-m-d H:i:s')
 {
     return date($style, time());
 }
+
+/**
+ * 分页
+ * @param  [type] $current_page [当前页]
+ * @param  [type] $total_page   [页面总数]
+ * @param  [type] $uri          [地址]
+ * @return [type]               [description]
+ */
+function pagination($current_page, $total, $uri)
+{
+    $params = $_GET ? '?'.http_build_query($_GET) : '';
+    $current_page_before = $current_page_after = '';
+    if($current_page == 1){
+        $current_page_before .= '';
+    }elseif($current_page>1 && $current_page<5){
+        $current_page_before .= "<a href='".$uri."/1".$params."'>1</a>";
+        if($current_page > 2){
+            $current_page_before .= "<a href='".$uri."/2".$params."'>2</a>";
+        }
+        if($current_page > 3){
+            $current_page_before .= "<a href='".$uri."/3".$params."'>3</a>";
+        }
+    }else{
+        $current_page_before .= "<a href='".$uri."/".($current_page-1).$params."' title='上一页'><i class='fa fa-angle-left'></i></a><a href='".$uri."/1".$params."'>1</a><a class='more'>...</a>";
+        $current_page_before .= "<a href='".$uri."/".($current_page-2).$params."'>".($current_page-2)."</a><a href='".$uri."/".($current_page-1).$params."'>".($current_page-1)."</a>";
+    }
+    if($current_page == $total){
+        $current_page_after .= '';
+    }elseif($total - $current_page < 4){
+        if($total - $current_page >3){
+            $current_page_after .= "<a href='".$uri."/".($total-3).$params."'>".($total-3)."</a>";
+        }
+        if($total - $current_page >2){
+            $current_page_after .= "<a href='".$uri."/".($total-2).$params."'>".($total-2)."</a>";
+        }
+        if($total - $current_page >1){
+            $current_page_after .= "<a href='".$uri."/".($total-1).$params."'>".($total-1)."</a>";
+        }
+        $current_page_after .= "<a href='".$uri."/".($total).$params."'>".($total)."</a>";
+    }else{
+        $current_page_after .= "<a href='".$uri."/".($current_page+1).$params."'>".($current_page+1)."</a><a href='".$uri."/".($current_page+2).$params."'>".($current_page+2)."</a>";
+        $current_page_after .= "<a class='more'>...</a><a href='".$uri."/".($total).$params."'>".$total."</a><a href='".$uri."/".($current_page+1).$params."' title='下一页'><i class='fa fa-angle-right'></i></a>";
+    }
+
+    echo "<div class='pagination text-right'>".$current_page_before."<a class='active'>".$current_page."</a>".$current_page_after."</div>";
+}

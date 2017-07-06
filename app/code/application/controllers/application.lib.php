@@ -84,7 +84,7 @@ class ApplicationLib extends Lib
 	{
 		$sql = [];
 		$sql_files = $this->file->read(APP.DS.'sql');
-		sort($sql_files);
+        sort($sql_files, SORT_NATURAL);
 		$lock = json_decode($this->file->get(APP.DS.'sql'.DS.'lock'), true);
 		$lastest_version = $lock['version'] ? $lock['version'] : 'v0.0.0';
 		foreach ($sql_files as $sql_file)

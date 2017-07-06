@@ -25,7 +25,7 @@ HELP;
         $sql = [];
         $file = YQ::help('file');
         $sql_files = $file->read(APP.DS.'sql');
-        sort($sql_files);
+        sort($sql_files, SORT_NATURAL);
         $lock = json_decode($file->get(APP.DS.'sql'.DS.'lock'), true);
         $lastest_version = $lock['version'] ? $lock['version'] : 'v0.0.0';
         foreach ($sql_files as $sql_file)

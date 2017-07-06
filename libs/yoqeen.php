@@ -93,6 +93,7 @@ final class YQ
 				$yoqeenApiMod = Yoqeen\Libs\Http::$yoqeenApiMod;
 				$yoqeenApiCon = Yoqeen\Libs\Http::$yoqeenApiCon;
 				$yoqeenApiFun = Yoqeen\Libs\Http::$yoqeenApiFun."Api";
+				$yoqeenFunParams = Yoqeen\Libs\Http::$yoqeenFunParams;
 				if(is_file(APP . DS . "code" . DS . $yoqeenApiMod . DS . "apis" . DS . $yoqeenApiCon . ".api.php"))
 				{
 					$yoqeenConClass = "Yoqeen\\App\\".ucfirst(strtolower($yoqeenApiMod))."\\Apis\\".ucfirst(strtolower($yoqeenApiCon))."Api";
@@ -117,6 +118,8 @@ final class YQ
 			$yoqeenCon = Yoqeen\Libs\Http::$yoqeenCon ? Yoqeen\Libs\Http::$yoqeenCon : $yoqeenMod;
 			/* function code */
 			$yoqeenFun = isAjax() ? Yoqeen\Libs\Http::$yoqeenFun.'Ajax' : Yoqeen\Libs\Http::$yoqeenFun.'Act';
+			/* function params */
+			$yoqeenFunParams = Yoqeen\Libs\Http::$yoqeenFunParams;
 
 			// dd($yoqeenMod, $yoqeenCon, $yoqeenFun);
 
@@ -127,7 +130,14 @@ final class YQ
 				{
 					if(method_exists($obj,$yoqeenFun))
 					{
-						$obj->$yoqeenFun();
+						if($yoqeenFunParams)
+						{
+							call_user_func_array([$obj, $yoqeenFun], $yoqeenFunParams);
+						}
+						else
+						{
+							$obj->$yoqeenFun();
+						}
 						return;
 					}
 				}
@@ -189,6 +199,7 @@ final class YQ
 		if(!is_file($file))
 		{
 			$file = APP.DS."design".DS.'base'.DS.$filename.".tpl";
+
 			if(!is_file($file))
 			{
 				return false;

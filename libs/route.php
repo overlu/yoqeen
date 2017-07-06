@@ -405,11 +405,12 @@ class Route
                 // Set new object and append the callback with some data.
                 $o = new \ArrayObject($args);
                 $o->app = App::instance();
-                $callback = $callback->bindTo($o);
+                $callback = @$callback->bindTo($o);
 
                 if (isset($args[0]) && $args[0] == $this->fullArg) {
                     array_shift($args);
                 }
+                Http::$yoqeenFunParams = $args;
 
                 // Finally, call the method.
                 return call_user_func_array($callback, $args);
@@ -513,7 +514,7 @@ class Route
      */
     public function __set($k, $v)
     {
-        $this->{$k} = $v instanceof \Closure ? $v->bindTo($this) : $v;
+        $this->{$k} = $v instanceof \Closure ? @$v->bindTo($this) : $v;
     }
 
 }

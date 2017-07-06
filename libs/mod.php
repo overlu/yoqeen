@@ -132,7 +132,7 @@ class Mod extends Core
 	}
 
 	//order by
-	public function order($order,$ace="ACE")
+	public function order($order,$ace="ASC")
 	{
 		$this->sql .= ' ORDER BY '.$order.' '.$ace;
 		return $this;
