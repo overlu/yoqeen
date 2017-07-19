@@ -400,17 +400,17 @@ class Route
     {
         if (isset($callback))
         {
+            if (isset($args[0]) && $args[0] == $this->fullArg) {
+                array_shift($args);
+            }
+
+            Http::$yoqeenFunParams = $args;
             if (is_callable($callback) && $callback instanceof \Closure)
             {
                 // Set new object and append the callback with some data.
                 $o = new \ArrayObject($args);
                 $o->app = App::instance();
                 $callback = @$callback->bindTo($o);
-
-                if (isset($args[0]) && $args[0] == $this->fullArg) {
-                    array_shift($args);
-                }
-                Http::$yoqeenFunParams = $args;
 
                 // Finally, call the method.
                 return call_user_func_array($callback, $args);
@@ -431,12 +431,20 @@ class Route
                     $yoqeenFun = $fixcallback[1];
                 }
                 $yoqeenFun = isAjax() ? $yoqeenFun.'Ajax' : $yoqeenFun.'Act';
+                \YQ::$theme = (isset($_SESSION['isBackend']) && $yoqeenMod=='admin') ? 'admin' : YOQEEN_THEME;
                 $yoqeenConClass = "Yoqeen\\App\\".ucfirst(strtolower($yoqeenMod))."\\Controllers\\".ucfirst(strtolower($yoqeenCon))."Lib";
                 if($obj = new $yoqeenConClass)
                 {
                     if(method_exists($obj,$yoqeenFun))
                     {
-                        $obj->$yoqeenFun();
+                        if($args)
+                        {
+                            call_user_func_array([$obj, $yoqeenFun], $args);
+                        }
+                        else
+                        {
+                            $obj->$yoqeenFun();
+                        }
                         $this->isfun = false;
                     }
                 }
@@ -458,12 +466,20 @@ class Route
                     $yoqeenFun = YOQEEN_FUN_DEFAULT;
                 }
                 $yoqeenFun = isAjax() ? $yoqeenFun.'Ajax' : $yoqeenFun.'Act';
+                \YQ::$theme = (isset($_SESSION['isBackend']) && $yoqeenMod=='admin') ? 'admin' : YOQEEN_THEME;
                 $yoqeenConClass = "Yoqeen\\App\\".ucfirst(strtolower($yoqeenMod))."\\Controllers\\".ucfirst(strtolower($yoqeenCon))."Lib";
                 if($obj = new $yoqeenConClass)
                 {
                     if(method_exists($obj,$yoqeenFun))
                     {
-                        $obj->$yoqeenFun();
+                        if($args)
+                        {
+                            call_user_func_array([$obj, $yoqeenFun], $args);
+                        }
+                        else
+                        {
+                            $obj->$yoqeenFun();
+                        }
                         $this->isfun = false;
                     }
                 }

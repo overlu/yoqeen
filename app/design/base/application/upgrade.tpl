@@ -9,7 +9,7 @@
         <button type="button" class="pure-button cancel">返回</button>
     </div>
 
-    <div class='pure-control-group hide text-left' id='result' style="max-width: 600px;margin:50px auto;">
+    <div class='pure-control-group hide text-left' id='result' style="text-align:center;margin:50px auto;">
         wfaffwfwq
     </div>
     </fieldset>

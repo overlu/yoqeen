@@ -18,7 +18,7 @@ class File
 	 | $mod文件的访问类型
 	 | @return  文件名
 	 */
-	function create($file, $content = '', $mod = "w")
+	public function create($file, $content = '', $mod = "w")
 	{
 		$_file = explode(DS, $file);
 		$dir = substr($file, 0, 0-strlen($_file[count($_file)-1]));
@@ -44,7 +44,7 @@ class File
 	 | $suffix 是否输出文件后缀名 null不输出
 	 | @return  文件名 or false
 	 */
-	function name($file,$suffix=NULL)
+	public function name($file,$suffix=NULL)
 	{
 		if(is_file($file))
 		{
@@ -53,12 +53,17 @@ class File
 		return false;
 	}
 
+	public function ext($file)
+	{
+		return pathinfo($file, PATHINFO_EXTENSION);
+	}
+
 	/**
 	 | 获取目录名
 	 | $file 文件
 	 | @return  目录名 or false
 	 */
-	function dirName($file)
+	public function dirName($file)
 	{
 		if(is_file($file))
 		{
@@ -72,7 +77,7 @@ class File
 	 | $file 文件 [为字符串或者数组]
 	 | @return  未删除的文件 或者 true/false
 	 */
-	function remove($file)
+	public function remove($file)
 	{
 		if(is_array($file))
 		{
@@ -94,7 +99,7 @@ class File
 	 | $dir 目录 [为字符串或者数组]
 	 | @return  未删除的目录 或者 true/false
 	 */
-	function dirsDelete($dir)
+	public function dirsDelete($dir)
 	{
 		if(is_array($dir))
 		{
@@ -113,7 +118,7 @@ class File
 	/**
 	 | 关闭打开的文件
 	 */
-	function close($file)
+	public function close($file)
 	{
 		return fclose($file);
 	}
@@ -130,7 +135,7 @@ class File
 	 | $tags 不会被过滤的标签，用','隔开
 	 | @return  文件的内容 or false
 	 */
-	function get($file, $type="all", $length="1024", $tags=NULL)
+	public function get($file, $type="all", $length="1024", $tags=NULL)
 	{
 		if(file_exists($file))
 		{
@@ -175,7 +180,7 @@ class File
 	 |	    all, 返回所有时间
 	 | @return  时间
 	 */
-	function time($file,$type="all")
+	public function time($file,$type="all")
 	{
 		if(file_exists($file))
 		{
@@ -213,7 +218,7 @@ class File
 	/**
 	 | 返回文件的信息
 	 */
-	function info($file)
+	public function info($file)
 	{
 		$info = stat($file);
 		clearstatcache();
@@ -223,7 +228,7 @@ class File
 	/**
 	 | 修改文件名
 	 */
-	function reName($oldname, $newname)
+	public function reName($oldname, $newname)
 	{
 		return rename($oldname,$newname);
 	}
@@ -263,7 +268,7 @@ class File
 	 | $dir 目录
 	 | $pattern 文件类型
 	 */
-	function select($dir, $pattern="*")
+	public function select($dir, $pattern="*")
 	{
 		$dir = substr($dir,-1) != DS ? $dir.DS : $dir;
 		if(is_dir($dir))
@@ -278,7 +283,7 @@ class File
 	 | $dir 读取的目录
 	 | $bl 是否返回全路径 true是
 	 */
-	function read($dir, $bl=true)
+	public function read($dir, $bl=true)
 	{
 		$dir = substr($dir,-1) !=  DS ? $dir.DS : $dir;
 		if(is_dir($dir))
@@ -299,7 +304,7 @@ class File
 	/**
 	 | 清空目录，慎用
 	 */
-	function truncate($dir)
+	public function truncate($dir)
 	{
 		$temp = $this->read($dir);
 		foreach($temp as $val)
@@ -314,7 +319,7 @@ class File
 	 | $template 模板文件
 	 | $templateData 数组 key模板文件需要替换字段 value模板文件替换字段的值
 	 */
-	function template($template,$templateData)
+	public function template($template,$templateData)
 	{
 		if(!is_file($template) || !is_array($templateData)){ return ''; }
 		$template = $this->get($template);

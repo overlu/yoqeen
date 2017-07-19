@@ -14,7 +14,7 @@ class IndexLib extends Lib
 
 	public function indexAct()
 	{
-		$var = 'hello yoqeen !';
+		$var = "<i class='fa fa-smile-o' style='font-size:16em;'></i>".EOL.EOL."<span style='font-size:4em;'>HELLO YQOEEN!</span>";
         $this->assign('var', $var);
 
 		$this->template('index');

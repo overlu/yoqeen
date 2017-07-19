@@ -43,7 +43,7 @@ class Cli
             echo 'shell file must be run as a CLI application';
             exit(1);
         }
-        echo "start...\n\n";
+        echo "start...".EOL.EOL;
         $this->start = time();
         global $argv;
         $this->opts = array_unique($argv);
@@ -168,7 +168,7 @@ HELP;
 
     public function __destruct()
     {
-        echo "\n\nexec time: ".(time()-$this->start). "s.\nend...\n";
+        echo EOL.EOL."exec time: ".(time()-$this->start). "s.".EOL."end...".EOL;
     }
 
     /**

@@ -2,6 +2,10 @@
 var/session
 var/js
 var/css
+.idea
+includes/database.php
+.DS_Store
 var/reports
 var/pagecache
 app/sql/lock
+vendor

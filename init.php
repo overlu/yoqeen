@@ -1,102 +1,44 @@
 <?php
 defined('IN_YOQEEN') or exit('No permission');
+
 isset($_REQUEST['GLOBALS']) && exit('Access Error');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 if (version_compare(phpversion(), '5.3.0', '<')===true)
 {
     exit('The php version is low, please upgrade first.');
 }
 set_time_limit(0);
+
 ini_set('date.timezone','Asia/Shanghai');
+
 define('DS', DIRECTORY_SEPARATOR); /* /or\ */
 
 /*
 Compilation includes configuration file
 */
 
-$yoqeenconfig = __DIR__.DS.'includes'.DS.'config.php';
+require_once __DIR__.DS.'includes'.DS.'config.php';
 
-if(is_file($yoqeenconfig))
-{
-    include_once $yoqeenconfig;
-}
-else
-{
-    exit($yoqeenconfig.' is not exist');
-}
-
-if(DEBUG)
-{
-    error_reporting(E_ALL | E_STRICT);
-}
-else
-{
-    error_reporting(0);
-}
-
-if(!VERSION)
-{
-    die;
-}
+VERSION or die;
 
 /*
 bug
  */
-$yoqeendevelop = INCLUDES.DS.'develop.php';
-if(is_file($yoqeendevelop))
-{
-    include_once $yoqeendevelop;
-}
-else
-{
-    exit($yoqeendevelop.' is not exist');
-}
+DEBUG ? error_reporting(E_ALL | E_STRICT) : error_reporting(0);
+
+require_once INCLUDES.DS.'develop.php';
 
 /*
 Compilation includes lib file
 */
-$yoqeenlibs = LIBS.DS.'yoqeen.php';
-if(is_file($yoqeenlibs))
-{
-    include_once $yoqeenlibs;
-}
-else
-{
-    exit('yoqeen.php is not exist');
-}
+require_once LIBS.DS.'yoqeen.php';
 
 /*
-Compilation includes bootstrap file
+Compilation includes autoload file
 */
-$yoqeenbootstrap = INCLUDES.DS.'bootstrap.php';
-if(is_file($yoqeenbootstrap))
-{
-    include_once $yoqeenbootstrap;
-}
-else
-{
-    exit($yoqeenbootstrap.' is not exist');
-}
+require_once INCLUDES.DS.'autoload.php';
 
-/*
-Compilation includes function file
-*/
-$yoqeenhelp = HELP.DS."function.php";
-if(is_file($yoqeenhelp))
-{
-    include_once $yoqeenhelp;
-}
-else
-{
-    exit($yoqeenhelp.' is not exist.');
-}
+require_once INCLUDES.DS."code.php";
 
-$yoqeencode = INCLUDES.DS."code.php";
-if(is_file($yoqeencode))
-{
-    include_once $yoqeencode;
-}
-else
-{
-    exit($yoqeencode.' is not exists.');
-}

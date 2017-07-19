@@ -44,15 +44,15 @@ HELP;
             try {
                 if(!YQ::Mod()->exec($_sql)->result()->query)
                 {
-                    echo  "Error: {$_key}=> {$_sql}\n";
+                    echo  "Error: {$_key}=> {$_sql}".Eol;
                 }
                 else
                 {
-                    echo "Success: {$_key}\n";
+                    echo "Success: {$_key}".Eol;
                     $install_num++;
                 }
             } catch (PDOException $e) {
-                echo "Error: {$_key}=> ".$e->getMessage()."\n";
+                echo "Error: {$_key}=> ".$e->getMessage()."".Eol;
             }
         }
 

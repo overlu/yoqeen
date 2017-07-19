@@ -67,7 +67,7 @@ if(EMAIL_SELECT)
 
 //debug
 define('DEBUG', true);  //debug mode
-define('EFFECTMOD', true); // performance adjustment
+define('EFFECTMOD', false); // performance adjustment
 define('DEVELOPMOD', 'DEVELOPMENT'); //develop model [ PRODUCTION or DEVELOPMENT ]
 
 //api
