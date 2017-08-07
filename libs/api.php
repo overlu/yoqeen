@@ -14,8 +14,6 @@ class Api extends Core
 	{
 		parent::__construct();
 
-		$this->model = YQ::MODEL(ltrim(strrchr(rtrim(strtolower(get_class($this)),'api'),"\\"),"\\"));
-
 		//api result
 		$this->result = array(
 			'code'		=> 0,			//api code
@@ -27,13 +25,35 @@ class Api extends Core
 
 	public function __get($name)
 	{
+		if($name == "model")
+		{
+			$mod = ltrim(strrchr(strtolower(get_class($this)),"\\"),"\\");
+			if(substr($mod, -3) != 'lib')
+			{
+				throw new \Exception("Controllers Class Name Should End with [lib]", 1);
+
+			}
+			$mod = substr($mod, 0, -3);
+			return YQ::MODEL($mod);
+		}
 		if(strrchr($name,"Model") == "Model")
 		{
-			if(!isset($this->_m[$name]))
+			$str = substr($name, 0, -5);
+			$arr = preg_split("/(?=[A-Z])/", $str);
+			if(count($arr) == 2)
 			{
-				$this->_m[$name] = YQ::MODEL(substr($name, 0, -5));
+			//	dump($arr);
+				return YQ::MODEL(strtolower($arr[0]),strtolower($arr[1]));
 			}
-			return $this->_m[$name];
+			else
+			{
+				return YQ::MODEL($str);
+			}
+		}
+		if(substr($name, 0, 4) == 'help')
+		{
+			$type = strtolower(substr($name, 4));
+			return YQ::help($type);
 		}
 	}
 

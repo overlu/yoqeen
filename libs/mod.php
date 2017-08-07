@@ -371,12 +371,13 @@ class Mod extends Core
 				break;
 			default:
 				$this->numTotal();
-				$result = (object)[
-					'fetch'=>$this->fetch,
-					'sql'  =>$this->sql,
-					'query'=>$this->query,
-					'num'  =>$this->num,
-					];
+				if($this->num == 0) {
+					return null;
+				} elseif ($this->num == 1) {
+					return $this->fetch[0][$type];
+				} else {
+					return array_column($this->fetch, $type);
+				}
 				break;
 		}
         $this->reset();
